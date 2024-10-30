@@ -4,7 +4,7 @@ class Solution {
 		ArrayDeque<Integer> deque1=new ArrayDeque<>(),deque2=new ArrayDeque<>();
 		long sum1=0,sum2=0;
 		int answer=0;
-        int limit=queue1.length*3;
+        int limit=queue1.length*2+1;
 		for(int i=0;i<queue1.length;i++) {
 			sum1+=queue1[i];
 			deque1.add(queue1[i]);
