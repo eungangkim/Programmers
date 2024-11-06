@@ -3,8 +3,12 @@ import java.util.Stack;
 class Solution {
 	public int solution(String s) {
 		int answer=0;
+        StringBuilder sb = new StringBuilder(s);
+
 		for(int i=0;i<s.length();i++) {
-			if(isRight(s.substring(i,s.length())+s.substring(0,i)))
+			sb.append(sb.charAt(0));
+			sb.deleteCharAt(0);
+			if(isRight(sb.toString()))
 				answer++;
 		}
 		return answer;
