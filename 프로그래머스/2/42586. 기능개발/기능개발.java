@@ -1,23 +1,29 @@
 import java.util.ArrayList;
 class Solution {
-   public int[] solution(int[] progresses, int[] speeds) {
-    	ArrayList<Integer> done=new ArrayList<>();
-    	int idx=0,day=0,length=progresses.length;
-    	int answer[];
-    	
-    	while(idx<length) {
-    		int start=idx,remain=100-progresses[idx]-day*speeds[idx];
-    		day+=remain/speeds[idx]+(speeds[idx]!=1&&remain%speeds[idx]!=0?1:0);
-    		while(idx<length&&progresses[idx]+speeds[idx]*day>=100)idx++;
-    		done.add(idx-start);
-    	}
-    	
-    	answer=new int[done.size()];
-    	
-    	for(int i=0;i<answer.length;i++) {
-    		answer[i]=done.get(i);
-    	}
-    	
-    	return answer;
+    public int[] solution(int[] progresses, int[] speeds) {
+        int n=0,idx=0;
+        ArrayList<Integer> arr=new ArrayList<>();
+        
+        while(n<progresses.length) {
+        	boolean flag=true;
+        	int cnt=0;
+        	for(int i=idx;i<progresses.length;i++) {
+        		progresses[i]+=speeds[i];
+        		if(flag&&progresses[i]>=100) {
+        			cnt++;
+        			n++;
+                    idx++;
+        		}
+        		else {
+        			flag=false;
+        		}
+        	}
+            if(cnt!=0)arr.add(cnt);
+        }
+        int answer[]=new int[arr.size()];
+        for(int i=0;i<arr.size();i++) {
+        	answer[i]=arr.get(i);
+        }
+        return answer;
     }
 }
