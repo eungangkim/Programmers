@@ -1,34 +1,24 @@
 class Solution {
     int solution(int[][] land) {
-        int [][]points=new int[land.length][4];
-        int firstMax=0,secondMax=0,idx=-1;
-        int nextFirMax=0,nextSecMax=0,nextIdx=-1;
-        for(int i=0;i<land.length;i++) {
-        	nextFirMax=0;
-        	nextSecMax=0;
-        	for(int j=0;j<4;j++) {
-        		if(idx==j) {
-            		points[i][j]=secondMax+land[i][j];
-        		}
-        		else {
-            		points[i][j]=firstMax+land[i][j];
-        		}
-                //System.out.print(points[i][j]+" ");
-        		if(points[i][j]>=nextFirMax) {
-        			if(nextFirMax!=0)nextSecMax=nextFirMax;
-        			nextFirMax=points[i][j];
-        			nextIdx=j;
-        		}
-        		if(nextSecMax<points[i][j]&&points[i][j]<nextFirMax) {
-        			nextSecMax=points[i][j];
-        		}
-        	}
-            //System.out.println();
-        	firstMax=nextFirMax;
-        	secondMax=nextSecMax;
-        	idx=nextIdx;
-        }
-        
-        return firstMax;
-    }
+		int firMaxIdx=0,secMaxIdx=0;
+		for(int i=0;i<land.length;i++) {
+            firMaxIdx=0;
+            secMaxIdx=1;
+			for(int j=1;j<4;j++) {
+				if(land[i][firMaxIdx]<=land[i][j]) {
+					secMaxIdx=firMaxIdx;
+					firMaxIdx=j;
+				}
+				else if(land[i][secMaxIdx]<=land[i][j]){
+					secMaxIdx=j;
+				}
+			}
+			if(i==land.length-1)break;
+			for(int j=0;j<4;j++) {
+				if(j==firMaxIdx)land[i+1][j]+=land[i][secMaxIdx];
+				else land[i+1][j]+=land[i][firMaxIdx];
+			}
+		}
+		return land[land.length-1][firMaxIdx];
+	}
 }
