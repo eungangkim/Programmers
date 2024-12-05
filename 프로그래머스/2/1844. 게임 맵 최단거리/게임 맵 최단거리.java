@@ -1,24 +1,27 @@
 import java.util.ArrayDeque;
 class Solution {
     public int solution(int[][] maps) {
-        ArrayDeque<int[]> queue=new ArrayDeque<>();
-        boolean [][]visited=new boolean[maps.length][maps[0].length];
-        
-		int [] dr= {-1,0,1,0};
-		int [] dc= {0,1,0,-1};
+		boolean [][]visited=new boolean[maps.length][maps[0].length];
+		ArrayDeque<int []> queue=new ArrayDeque<>();
+		int []dr= {1,0,-1,0};
+		int []dc= {0,1,0,-1};
 		
-		queue.add(new int[] {maps.length-1,maps[0].length-1,1});
+		queue.add(new int[] {0,0,1});
+		visited[0][0]=true;
+		
 		while(!queue.isEmpty()) {
-			int [] loc=queue.poll();
-            //System.out.println(loc[0]+" "+loc[1]);
-			if(loc[0]==0&&loc[1]==0)return loc[2];
-			for(int x=0;x<4;x++) {
-				if(0<=loc[0]+dr[x]&&loc[0]+dr[x]<maps.length&&0<=loc[1]+dc[x]&&loc[1]+dc[x]<maps[0].length&&maps[loc[0]+dr[x]][loc[1]+dc[x]]==1&&!visited[loc[0]+dr[x]][loc[1]+dc[x]]) {
-					queue.add(new int[] {loc[0]+dr[x],loc[1]+dc[x],loc[2]+1});
-                    visited[loc[0]+dr[x]][loc[1]+dc[x]]=true;
+			int info[]=queue.poll();
+			if(info[0]==maps.length-1&&info[1]==maps[0].length-1)return info[2];
+			
+			for(int i=0;i<4;i++) {
+				int r=info[0]+dr[i],c=info[1]+dc[i];
+				
+				if(0<=r&&r<maps.length&&0<=c&&c<maps[0].length&&maps[r][c]==1&&!visited[r][c]) {
+					visited[r][c]=true;
+					queue.add(new int[] {r,c,info[2]+1});
 				}
 			}
 		}
-        return -1;
-    }
+		return -1;
+	}
 }
