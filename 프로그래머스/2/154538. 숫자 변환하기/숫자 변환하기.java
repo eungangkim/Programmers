@@ -2,15 +2,21 @@ import java.util.*;
 
 class Solution {
     public int solution(int x, int y, int n) {
-		ArrayDeque<int []> queue=new ArrayDeque<>();
+		ArrayDeque<Integer> queue=new ArrayDeque<>();
+		int count=0;
+		queue.add(y);
 		
-		queue.add(new int[]{y,0});
 		while(!queue.isEmpty()) {
-			int []info=queue.poll();
-			if(info[0]==x)return info[1];
-			if(info[0]%2==0&&info[0]/2>=x)queue.add(new int[] {info[0]/2,info[1]+1});
-			if(info[0]%3==0&&info[0]/3>=x)queue.add(new int[] {info[0]/3,info[1]+1});
-			if(info[0]-n>=x)queue.add(new int[] {info[0]-n,info[1]+1});
+			ArrayDeque<Integer> next=new ArrayDeque<>();
+			while(!queue.isEmpty()) {
+				int number=queue.poll();
+				if(number==x)return count;
+				if(number%2==0&&number/2>=x)next.add(number/2);
+				if(number%3==0&&number/3>=x)next.add(number/3);
+				if(number-n>=x)next.add(number-n);
+			}
+			queue=next;
+			count++;
 		}
 		return -1;
 	}
