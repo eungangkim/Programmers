@@ -1,7 +1,7 @@
 class Solution {
     public int[] solution(int e, int[] starts) {
         int []answer=new int[starts.length],count=new int[e],maxNumbers=new int[e];
-        int maxCount=0,maxNumber=0;
+        int maxNumber=0;
         int sqrtOfe=(int)Math.sqrt(e);
         for(int i=1;i<=sqrtOfe;i++) {
         	int number=i*i;
