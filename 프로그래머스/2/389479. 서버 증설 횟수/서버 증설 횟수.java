@@ -10,12 +10,10 @@ class Solution {
             start=(start+1)%k;finish=(finish+1)%k;
             serverQueue[finish]=0;
             if(additionServer>runningServer){
-                int as=additionServer-runningServer;
-                serverQueue[finish]=as;
-                runningServer+=as;
-                numOfServer+=as;
+                serverQueue[finish]=additionServer-runningServer;
+                numOfServer+=additionServer-runningServer;
+                runningServer=additionServer;
             }
-            
         }
         return numOfServer;
     }
